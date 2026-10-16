@@ -6,10 +6,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifes.col.locadorabackend.domain.Ator;
-import br.edu.ifes.col.locadorabackend.domain.AtorRepository;
-import br.edu.ifes.col.locadorabackend.domain.TituloRepository;
 import br.edu.ifes.col.locadorabackend.exceptions.IntegridadeException;
 import br.edu.ifes.col.locadorabackend.exceptions.ObjetoNaoEncontradoException;
+import br.edu.ifes.col.locadorabackend.repositories.AtorRepository;
+import br.edu.ifes.col.locadorabackend.repositories.TituloRepository;
 
 @Service
 public class AtorService {

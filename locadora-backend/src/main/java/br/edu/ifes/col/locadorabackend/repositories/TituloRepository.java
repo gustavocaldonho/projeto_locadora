@@ -1,6 +1,8 @@
-package br.edu.ifes.col.locadorabackend.domain;
+package br.edu.ifes.col.locadorabackend.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import br.edu.ifes.col.locadorabackend.domain.Titulo;
 
 public interface TituloRepository extends JpaRepository<Titulo, Long> {
 

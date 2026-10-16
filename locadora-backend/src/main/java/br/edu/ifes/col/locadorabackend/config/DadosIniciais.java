@@ -9,16 +9,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.edu.ifes.col.locadorabackend.domain.Ator;
-import br.edu.ifes.col.locadorabackend.domain.AtorRepository;
 import br.edu.ifes.col.locadorabackend.domain.Classe;
-import br.edu.ifes.col.locadorabackend.domain.ClasseRepository;
 import br.edu.ifes.col.locadorabackend.domain.Diretor;
-import br.edu.ifes.col.locadorabackend.domain.DiretorRepository;
 import br.edu.ifes.col.locadorabackend.domain.Item;
-import br.edu.ifes.col.locadorabackend.domain.ItemRepository;
 import br.edu.ifes.col.locadorabackend.domain.TipoItem;
 import br.edu.ifes.col.locadorabackend.domain.Titulo;
-import br.edu.ifes.col.locadorabackend.domain.TituloRepository;
+import br.edu.ifes.col.locadorabackend.repositories.AtorRepository;
+import br.edu.ifes.col.locadorabackend.repositories.ClasseRepository;
+import br.edu.ifes.col.locadorabackend.repositories.DiretorRepository;
+import br.edu.ifes.col.locadorabackend.repositories.ItemRepository;
+import br.edu.ifes.col.locadorabackend.repositories.TituloRepository;
 
 /**
  * Cadastra alguns dados de exemplo quando o banco está vazio.

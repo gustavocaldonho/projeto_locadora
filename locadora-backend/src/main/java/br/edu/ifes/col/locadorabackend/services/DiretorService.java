@@ -6,10 +6,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifes.col.locadorabackend.domain.Diretor;
-import br.edu.ifes.col.locadorabackend.domain.DiretorRepository;
-import br.edu.ifes.col.locadorabackend.domain.TituloRepository;
 import br.edu.ifes.col.locadorabackend.exceptions.IntegridadeException;
 import br.edu.ifes.col.locadorabackend.exceptions.ObjetoNaoEncontradoException;
+import br.edu.ifes.col.locadorabackend.repositories.DiretorRepository;
+import br.edu.ifes.col.locadorabackend.repositories.TituloRepository;
 
 @Service
 public class DiretorService {

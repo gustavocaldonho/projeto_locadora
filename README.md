@@ -67,7 +67,8 @@ Importe `docs/locadora.postman_collection.json`. A variável `baseUrl` já apont
 
 Pacote `br.edu.ifes.col.locadorabackend`:
 
-- `domain` — entidades JPA (`Ator`, `Diretor`, `Classe`, `Titulo`, `Item`, enum `TipoItem`) e repositórios (`JpaRepository`)
+- `domain` — entidades JPA (`Ator`, `Diretor`, `Classe`, `Titulo`, `Item`, enum `TipoItem`)
+- `repositories` — repositórios (DAO) que estendem `JpaRepository`
 - `services` — regras de negócio (validações de exclusão, número de série único, busca de atores/diretor/classe do título)
 - `resources` — controllers REST, documentados com `@Tag`, `@Operation` e `@ApiResponse`
 - `exceptions` — `ObjetoNaoEncontradoException` (404), `IntegridadeException` (400), `ErroPadrao` e o `ResourceExceptionHandler` (`@ControllerAdvice`)
