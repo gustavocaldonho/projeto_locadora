@@ -27,7 +27,7 @@ Regras de integridade implementadas (do documento de análise):
 
 O backend usa o banco PostgreSQL **`locadora`** em `localhost:5432` (crie pelo pgAdmin se ainda não existir). A conexão fica em `locadora-backend/src/main/resources/application.properties`.
 
-Usuário e senha são lidos das variáveis de ambiente `DB_USERNAME` e `DB_PASSWORD`, para a senha não ir para o GitHub. Se `DB_USERNAME` não existir, usa `postgres`. No STS4: `Run > Run Configurations... > LocadoraBackendApplication > aba Environment`, adicione `DB_PASSWORD` com a sua senha (e `DB_USERNAME`, se o seu usuário não for `postgres`).
+O usuário padrão é `postgres` e a senha padrão é `admin`. Para usar outros valores sem mudar o arquivo, defina as variáveis de ambiente `DB_USERNAME` e `DB_PASSWORD` (no STS4: `Run > Run Configurations... > LocadoraBackendApplication > aba Environment`).
 
 As tabelas são criadas automaticamente pelo Hibernate (`ddl-auto=update`), sem apagar dados existentes. Na primeira execução, com o banco vazio, a classe `config/DadosIniciais` cadastra alguns atores, diretores, classes, títulos e itens de exemplo.
 
@@ -38,7 +38,6 @@ Pelo **Spring Tool Suite 4**: `File > Import > Maven > Existing Maven Projects`,
 Ou pelo terminal, dentro de `locadora-backend` (no PowerShell):
 
 ```powershell
-$env:DB_PASSWORD = "sua_senha"
 .\mvnw.cmd spring-boot:run
 ```
 
