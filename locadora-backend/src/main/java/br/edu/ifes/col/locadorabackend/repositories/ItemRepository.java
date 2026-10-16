@@ -12,6 +12,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
 	boolean existsByTituloId(Long tituloId);
 
+	long countByTituloId(Long tituloId);
+
 	boolean existsByNumSerie(String numSerie);
 
 	boolean existsByNumSerieAndIdNot(String numSerie, Long id);

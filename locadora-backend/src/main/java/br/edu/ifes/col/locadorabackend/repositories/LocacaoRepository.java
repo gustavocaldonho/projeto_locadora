@@ -24,6 +24,9 @@ public interface LocacaoRepository extends JpaRepository<Locacao, Long> {
 	List<Locacao> findByClienteNumInscricaoAndDtDevolucaoEfetivaIsNullAndDtDevolucaoPrevistaBefore(Long clienteId,
 			LocalDate data);
 
+	/** Locações vigentes (não devolvidas) das cópias de um título. */
+	List<Locacao> findByItemTituloIdAndDtDevolucaoEfetivaIsNull(Long tituloId);
+
 	boolean existsByItemId(Long itemId);
 
 	boolean existsByClienteNumInscricaoIn(Collection<Long> clienteIds);

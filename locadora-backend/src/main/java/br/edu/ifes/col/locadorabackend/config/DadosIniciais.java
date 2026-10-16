@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,10 +16,12 @@ import br.edu.ifes.col.locadorabackend.domain.Dependente;
 import br.edu.ifes.col.locadorabackend.domain.Diretor;
 import br.edu.ifes.col.locadorabackend.domain.Item;
 import br.edu.ifes.col.locadorabackend.domain.Locacao;
+import br.edu.ifes.col.locadorabackend.domain.Perfil;
 import br.edu.ifes.col.locadorabackend.domain.Sexo;
 import br.edu.ifes.col.locadorabackend.domain.Socio;
 import br.edu.ifes.col.locadorabackend.domain.TipoItem;
 import br.edu.ifes.col.locadorabackend.domain.Titulo;
+import br.edu.ifes.col.locadorabackend.domain.Usuario;
 import br.edu.ifes.col.locadorabackend.repositories.AtorRepository;
 import br.edu.ifes.col.locadorabackend.repositories.ClasseRepository;
 import br.edu.ifes.col.locadorabackend.repositories.ClienteRepository;
@@ -28,11 +31,13 @@ import br.edu.ifes.col.locadorabackend.repositories.ItemRepository;
 import br.edu.ifes.col.locadorabackend.repositories.LocacaoRepository;
 import br.edu.ifes.col.locadorabackend.repositories.SocioRepository;
 import br.edu.ifes.col.locadorabackend.repositories.TituloRepository;
+import br.edu.ifes.col.locadorabackend.repositories.UsuarioRepository;
 
 /**
  * Cadastra alguns dados de exemplo quando o banco está vazio.
- * O acervo só é cadastrado se não houver nenhum ator, e os clientes
- * e locações só se não houver nenhum cliente.
+ * O acervo só é cadastrado se não houver nenhum ator, os clientes
+ * e locações só se não houver nenhum cliente, e os usuários de login
+ * (admin/admin123 e cliente/cliente123) só se não houver nenhum usuário.
  */
 @Component
 public class DadosIniciais implements CommandLineRunner {
@@ -46,11 +51,14 @@ public class DadosIniciais implements CommandLineRunner {
 	private final SocioRepository socioRepository;
 	private final DependenteRepository dependenteRepository;
 	private final LocacaoRepository locacaoRepository;
+	private final UsuarioRepository usuarioRepository;
+	private final PasswordEncoder passwordEncoder;
 
 	public DadosIniciais(AtorRepository atorRepository, DiretorRepository diretorRepository,
 			ClasseRepository classeRepository, TituloRepository tituloRepository, ItemRepository itemRepository,
 			ClienteRepository clienteRepository, SocioRepository socioRepository,
-			DependenteRepository dependenteRepository, LocacaoRepository locacaoRepository) {
+			DependenteRepository dependenteRepository, LocacaoRepository locacaoRepository,
+			UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
 		this.atorRepository = atorRepository;
 		this.diretorRepository = diretorRepository;
 		this.classeRepository = classeRepository;
@@ -60,6 +68,8 @@ public class DadosIniciais implements CommandLineRunner {
 		this.socioRepository = socioRepository;
 		this.dependenteRepository = dependenteRepository;
 		this.locacaoRepository = locacaoRepository;
+		this.usuarioRepository = usuarioRepository;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
@@ -70,6 +80,10 @@ public class DadosIniciais implements CommandLineRunner {
 		}
 		if (clienteRepository.count() == 0) {
 			cadastrarClientesELocacoes();
+		}
+		if (usuarioRepository.count() == 0) {
+			usuarioRepository.save(new Usuario("admin", passwordEncoder.encode("admin123"), "Funcionário", Perfil.FUNCIONARIO));
+			usuarioRepository.save(new Usuario("cliente", passwordEncoder.encode("cliente123"), "Cliente", Perfil.CLIENTE));
 		}
 	}
 
