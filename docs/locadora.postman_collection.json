@@ -1,7 +1,7 @@
 {
   "info": {
-    "name": "Locadora Passatempo - Release 1",
-    "description": "CRUDs de Ator, Diretor, Classe, Título e Item. Os ids usados são os dos dados iniciais de exemplo (banco recém-criado). Excluir o id 1 de ator, diretor, classe ou título devolve 400, porque ele está em uso.",
+    "name": "Locadora Passatempo - Releases 1 e 2",
+    "description": "Release 1: acervo. Release 2 (Sprint 3): sócios, dependentes, locações e devoluções. Os ids usados são os dos dados iniciais de exemplo (banco recém-criado): sócios João (1) e Maria (2), dependentes Pedro (3) e Ana (4); a locação do item CDB-001 está em atraso.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -723,6 +723,646 @@
                   "language": "json"
                 }
               }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sócios",
+      "item": [
+        {
+          "name": "Listar sócios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/socios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "socios"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Buscar sócio",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/socios/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "socios",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Dependentes do sócio",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/socios/1/dependentes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "socios",
+                "1",
+                "dependentes"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Inscrever sócio",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/socios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "socios"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Carla Mendes\",\n  \"dtNascimento\": \"1992-02-14\",\n  \"sexo\": \"FEMININO\",\n  \"cpf\": \"555.666.777-88\",\n  \"endereco\": \"Rua B, 20 - Colatina/ES\",\n  \"tel\": \"(27) 97777-3333\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Alterar sócio",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/socios/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "socios",
+                "2"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Maria Oliveira Santos\",\n  \"dtNascimento\": \"1992-02-14\",\n  \"sexo\": \"FEMININO\",\n  \"cpf\": \"987.654.321-00\",\n  \"endereco\": \"Rua B, 20 - Colatina/ES\",\n  \"tel\": \"(27) 97777-3333\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Desativar sócio (e dependentes)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/socios/1/desativar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "socios",
+                "1",
+                "desativar"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Reativar sócio (e até 3 dependentes)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/socios/1/reativar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "socios",
+                "1",
+                "reativar"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Erro: excluir sócio com locações (400)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/socios/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "socios",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dependentes",
+      "item": [
+        {
+          "name": "Listar dependentes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/dependentes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dependentes"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Incluir dependente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dependentes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dependentes"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Bruno da Silva\",\n  \"dtNascimento\": \"2018-03-03\",\n  \"sexo\": \"MASCULINO\",\n  \"socio\": {\n    \"numInscricao\": 1\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Erro: quarto dependente ativo (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dependentes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dependentes"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Caio da Silva\",\n  \"dtNascimento\": \"2019-03-03\",\n  \"sexo\": \"MASCULINO\",\n  \"socio\": {\n    \"numInscricao\": 1\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Alterar dependente",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dependentes/4",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dependentes",
+                "4"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Ana Clara da Silva\",\n  \"dtNascimento\": \"2015-06-08\",\n  \"sexo\": \"FEMININO\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Desativar dependente",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/dependentes/4/desativar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dependentes",
+                "4",
+                "desativar"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Reativar dependente",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/dependentes/4/reativar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dependentes",
+                "4",
+                "reativar"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Excluir dependente",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/dependentes/4",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dependentes",
+                "4"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Clientes",
+      "item": [
+        {
+          "name": "Listar clientes (sócios e dependentes)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/clientes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "clientes"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Locações",
+      "item": [
+        {
+          "name": "Listar locações",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/locacoes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "locacoes"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Listar só as não devolvidas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/locacoes?vigentes=true",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "locacoes"
+              ],
+              "query": [
+                {
+                  "key": "vigentes",
+                  "value": "true"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Itens disponíveis",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/locacoes/itens-disponiveis",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "locacoes",
+                "itens-disponiveis"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Nova locação (valor e prazo da classe)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/locacoes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "locacoes"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": 2,\n  \"itemId\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Nova locação com valor e data informados",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/locacoes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "locacoes"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": 3,\n  \"itemId\": 4,\n  \"valorCobrado\": 5.0,\n  \"dtDevolucaoPrevista\": \"2030-01-10\",\n  \"paga\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Erro: cliente em débito (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/locacoes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "locacoes"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": 1,\n  \"itemId\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Erro: item já locado (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/locacoes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "locacoes"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": 2,\n  \"itemId\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Alterar locação",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/locacoes/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "locacoes",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"valorCobrado\": 5.0,\n  \"paga\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Cancelar locação (só não paga)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/locacoes/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "locacoes",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Devoluções",
+      "item": [
+        {
+          "name": "Consultar devolução (mostra multa)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/devolucoes/CDB-001",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "devolucoes",
+                "CDB-001"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Registrar devolução",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/devolucoes/CDB-001",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "devolucoes",
+                "CDB-001"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Erro: item não locado (400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/devolucoes/MTX-002",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "devolucoes",
+                "MTX-002"
+              ]
             }
           }
         }
