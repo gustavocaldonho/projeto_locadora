@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "Locadora Passatempo - Release 1",
-    "description": "CRUDs de Ator, Diretor, Classe, Título e Item. Os ids usados são os do data.sql. Excluir o id 1 de ator, diretor, classe ou título devolve 400, porque ele está em uso.",
+    "description": "CRUDs de Ator, Diretor, Classe, Título e Item. Os ids usados são os dos dados iniciais de exemplo (banco recém-criado). Excluir o id 1 de ator, diretor, classe ou título devolve 400, porque ele está em uso.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [

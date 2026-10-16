@@ -16,7 +16,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
 /**
- * Testa a API de ponta a ponta usando os dados do data.sql.
+ * Testa a API de ponta a ponta usando os dados de DadosIniciais.
  */
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -27,7 +27,7 @@ class LocadoraBackendApplicationTests {
 	private MockMvc mvc;
 
 	@Test
-	void listaAtoresCarregadosPeloDataSql() throws Exception {
+	void listaAtoresDosDadosIniciais() throws Exception {
 		mvc.perform(get("/resources/atores"))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.length()").value(6));

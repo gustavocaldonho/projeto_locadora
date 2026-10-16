@@ -4,7 +4,7 @@ Sistema da Locadora de Vídeo Passatempo, desenvolvido na disciplina Desenvolvim
 
 | Pasta | O que é |
 | --- | --- |
-| `locadora-backend/` | API REST em Spring Boot 3.5, Java 21, Spring Data JPA e banco H2 |
+| `locadora-backend/` | API REST em Spring Boot 3.5, Java 21, Spring Data JPA e PostgreSQL |
 | `locadora-frontend/` | Interface em Angular 20 com Angular Material |
 | `docs/` | Coleção do Postman para testar a API |
 
@@ -23,26 +23,33 @@ Regras de integridade implementadas (do documento de análise):
 
 ## Como rodar
 
-### 1. Backend
+### 1. Banco de dados
+
+O backend usa o banco PostgreSQL **`locadora`** em `localhost:5432` (crie pelo pgAdmin se ainda não existir). A conexão fica em `locadora-backend/src/main/resources/application.properties`.
+
+Usuário e senha são lidos das variáveis de ambiente `DB_USERNAME` e `DB_PASSWORD`, para a senha não ir para o GitHub. Se `DB_USERNAME` não existir, usa `postgres`. No STS4: `Run > Run Configurations... > LocadoraBackendApplication > aba Environment`, adicione `DB_PASSWORD` com a sua senha (e `DB_USERNAME`, se o seu usuário não for `postgres`).
+
+As tabelas são criadas automaticamente pelo Hibernate (`ddl-auto=update`), sem apagar dados existentes. Na primeira execução, com o banco vazio, a classe `config/DadosIniciais` cadastra alguns atores, diretores, classes, títulos e itens de exemplo.
+
+### 2. Backend
 
 Pelo **Spring Tool Suite 4**: `File > Import > Maven > Existing Maven Projects`, escolha a pasta `locadora-backend` e rode `LocadoraBackendApplication` com `Run As > Spring Boot App`.
 
-Ou pelo terminal, dentro de `locadora-backend`:
+Ou pelo terminal, dentro de `locadora-backend` (no PowerShell):
 
-```bash
-mvnw.cmd spring-boot:run     # Windows
-./mvnw spring-boot:run       # Linux/macOS
+```powershell
+$env:DB_PASSWORD = "sua_senha"
+.\mvnw.cmd spring-boot:run
 ```
 
 Endereços:
 
 - API: http://localhost:8080/locadora/resources/atores (também `diretores`, `classes`, `titulos`, `itens`)
 - Swagger: http://localhost:8080/locadora/swagger-ui.html
-- Console do H2: http://localhost:8080/locadora/h2-console (JDBC URL `jdbc:h2:mem:locadora`, usuário `sa`, sem senha)
 
-O banco é em memória: ao reiniciar, volta para os dados de exemplo do `data.sql`.
+Os testes automáticos (`mvnw test`) usam um banco H2 em memória e não mexem no PostgreSQL.
 
-### 2. Frontend
+### 3. Frontend
 
 Dentro de `locadora-frontend`:
 
@@ -53,7 +60,7 @@ ng serve
 
 Abra http://localhost:4200.
 
-### 3. Postman
+### 4. Postman
 
 Importe `docs/locadora.postman_collection.json`. A variável `baseUrl` já aponta para `http://localhost:8080/locadora/resources`.
 
@@ -65,7 +72,7 @@ Pacote `br.edu.ifes.col.locadorabackend`:
 - `services` — regras de negócio (validações de exclusão, número de série único, busca de atores/diretor/classe do título)
 - `resources` — controllers REST, documentados com `@Tag`, `@Operation` e `@ApiResponse`
 - `exceptions` — `ObjetoNaoEncontradoException` (404), `IntegridadeException` (400), `ErroPadrao` e o `ResourceExceptionHandler` (`@ControllerAdvice`)
-- `config` — CORS para o Angular e informações do Swagger
+- `config` — CORS para o Angular, informações do Swagger e dados iniciais de exemplo
 
 Exemplo de erro devolvido pela API:
 
