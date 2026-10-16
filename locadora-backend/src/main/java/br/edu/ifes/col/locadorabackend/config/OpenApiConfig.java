@@ -13,8 +13,8 @@ public class OpenApiConfig {
 	public OpenAPI locadoraOpenAPI() {
 		return new OpenAPI().info(new Info()
 				.title("API da Locadora Passatempo")
-				.description("Controle de acervo: atores, diretores, classes, títulos e itens")
-				.version("Release 1"));
+				.description("Controle de acervo (atores, diretores, classes, títulos e itens) e atendimento a cliente (sócios, dependentes, locações e devoluções)")
+				.version("Release 2"));
 	}
 
 }

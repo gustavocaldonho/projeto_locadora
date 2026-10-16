@@ -10,19 +10,29 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.edu.ifes.col.locadorabackend.domain.Ator;
 import br.edu.ifes.col.locadorabackend.domain.Classe;
+import br.edu.ifes.col.locadorabackend.domain.Cliente;
+import br.edu.ifes.col.locadorabackend.domain.Dependente;
 import br.edu.ifes.col.locadorabackend.domain.Diretor;
 import br.edu.ifes.col.locadorabackend.domain.Item;
+import br.edu.ifes.col.locadorabackend.domain.Locacao;
+import br.edu.ifes.col.locadorabackend.domain.Sexo;
+import br.edu.ifes.col.locadorabackend.domain.Socio;
 import br.edu.ifes.col.locadorabackend.domain.TipoItem;
 import br.edu.ifes.col.locadorabackend.domain.Titulo;
 import br.edu.ifes.col.locadorabackend.repositories.AtorRepository;
 import br.edu.ifes.col.locadorabackend.repositories.ClasseRepository;
+import br.edu.ifes.col.locadorabackend.repositories.ClienteRepository;
+import br.edu.ifes.col.locadorabackend.repositories.DependenteRepository;
 import br.edu.ifes.col.locadorabackend.repositories.DiretorRepository;
 import br.edu.ifes.col.locadorabackend.repositories.ItemRepository;
+import br.edu.ifes.col.locadorabackend.repositories.LocacaoRepository;
+import br.edu.ifes.col.locadorabackend.repositories.SocioRepository;
 import br.edu.ifes.col.locadorabackend.repositories.TituloRepository;
 
 /**
  * Cadastra alguns dados de exemplo quando o banco está vazio.
- * Se já existir algum ator cadastrado, não faz nada.
+ * O acervo só é cadastrado se não houver nenhum ator, e os clientes
+ * e locações só se não houver nenhum cliente.
  */
 @Component
 public class DadosIniciais implements CommandLineRunner {
@@ -32,22 +42,38 @@ public class DadosIniciais implements CommandLineRunner {
 	private final ClasseRepository classeRepository;
 	private final TituloRepository tituloRepository;
 	private final ItemRepository itemRepository;
+	private final ClienteRepository clienteRepository;
+	private final SocioRepository socioRepository;
+	private final DependenteRepository dependenteRepository;
+	private final LocacaoRepository locacaoRepository;
 
 	public DadosIniciais(AtorRepository atorRepository, DiretorRepository diretorRepository,
-			ClasseRepository classeRepository, TituloRepository tituloRepository, ItemRepository itemRepository) {
+			ClasseRepository classeRepository, TituloRepository tituloRepository, ItemRepository itemRepository,
+			ClienteRepository clienteRepository, SocioRepository socioRepository,
+			DependenteRepository dependenteRepository, LocacaoRepository locacaoRepository) {
 		this.atorRepository = atorRepository;
 		this.diretorRepository = diretorRepository;
 		this.classeRepository = classeRepository;
 		this.tituloRepository = tituloRepository;
 		this.itemRepository = itemRepository;
+		this.clienteRepository = clienteRepository;
+		this.socioRepository = socioRepository;
+		this.dependenteRepository = dependenteRepository;
+		this.locacaoRepository = locacaoRepository;
 	}
 
 	@Override
 	@Transactional
 	public void run(String... args) {
-		if (atorRepository.count() > 0) {
-			return;
+		if (atorRepository.count() == 0) {
+			cadastrarAcervo();
 		}
+		if (clienteRepository.count() == 0) {
+			cadastrarClientesELocacoes();
+		}
+	}
+
+	private void cadastrarAcervo() {
 
 		Ator keanu = atorRepository.save(new Ator(null, "Keanu Reeves"));
 		Ator carrie = atorRepository.save(new Ator(null, "Carrie-Anne Moss"));
@@ -78,6 +104,62 @@ public class DadosIniciais implements CommandLineRunner {
 		itemRepository.save(item("MTX-002", LocalDate.of(2024, 3, 10), TipoItem.BLURAY, matrix));
 		itemRepository.save(item("CDB-001", LocalDate.of(2023, 11, 2), TipoItem.FITA, central));
 		itemRepository.save(item("ORG-001", LocalDate.of(2025, 1, 15), TipoItem.BLURAY, origem));
+	}
+
+	private void cadastrarClientesELocacoes() {
+		Socio joao = socioRepository.save(socio("João da Silva", LocalDate.of(1985, 4, 12), Sexo.MASCULINO,
+				"123.456.789-00", "Rua das Flores, 100 - Colatina/ES", "(27) 99999-1111"));
+		Socio maria = socioRepository.save(socio("Maria Oliveira", LocalDate.of(1990, 9, 3), Sexo.FEMININO,
+				"987.654.321-00", "Av. Getúlio Vargas, 500 - Colatina/ES", "(27) 98888-2222"));
+		Dependente pedro = dependenteRepository.save(dependente("Pedro da Silva", LocalDate.of(2012, 1, 20),
+				Sexo.MASCULINO, joao));
+		dependenteRepository.save(dependente("Ana da Silva", LocalDate.of(2015, 6, 8), Sexo.FEMININO, joao));
+
+		LocalDate hoje = LocalDate.now();
+		// Locação vigente, dentro do prazo
+		itemRepository.findByNumSerie("MTX-001").ifPresent(item ->
+				locacaoRepository.save(locacao(item, maria, hoje.minusDays(1), hoje.plusDays(2), false)));
+		// Locação em atraso: João fica em débito e não consegue locar até devolver
+		itemRepository.findByNumSerie("CDB-001").ifPresent(item ->
+				locacaoRepository.save(locacao(item, joao, hoje.minusDays(8), hoje.minusDays(3), false)));
+		// Locação já devolvida
+		itemRepository.findByNumSerie("ORG-001").ifPresent(item -> {
+			Locacao devolvida = locacao(item, pedro, hoje.minusDays(20), hoje.minusDays(18), true);
+			devolvida.setDtDevolucaoEfetiva(hoje.minusDays(18));
+			devolvida.setMultaCobrada(0.0);
+			locacaoRepository.save(devolvida);
+		});
+	}
+
+	private Socio socio(String nome, LocalDate nascimento, Sexo sexo, String cpf, String endereco, String tel) {
+		Socio socio = new Socio();
+		socio.setNome(nome);
+		socio.setDtNascimento(nascimento);
+		socio.setSexo(sexo);
+		socio.setCpf(cpf);
+		socio.setEndereco(endereco);
+		socio.setTel(tel);
+		return socio;
+	}
+
+	private Dependente dependente(String nome, LocalDate nascimento, Sexo sexo, Socio socio) {
+		Dependente dependente = new Dependente();
+		dependente.setNome(nome);
+		dependente.setDtNascimento(nascimento);
+		dependente.setSexo(sexo);
+		dependente.setSocio(socio);
+		return dependente;
+	}
+
+	private Locacao locacao(Item item, Cliente cliente, LocalDate dtLocacao, LocalDate dtPrevista, boolean paga) {
+		Locacao locacao = new Locacao();
+		locacao.setItem(item);
+		locacao.setCliente(cliente);
+		locacao.setDtLocacao(dtLocacao);
+		locacao.setDtDevolucaoPrevista(dtPrevista);
+		locacao.setValorCobrado(item.getTitulo().getClasse().getValor());
+		locacao.setPaga(paga);
+		return locacao;
 	}
 
 	private Titulo titulo(String nome, int ano, String sinopse, String categoria, List<Ator> atores,

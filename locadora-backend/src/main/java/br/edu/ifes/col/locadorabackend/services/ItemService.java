@@ -9,16 +9,19 @@ import br.edu.ifes.col.locadorabackend.domain.Item;
 import br.edu.ifes.col.locadorabackend.exceptions.IntegridadeException;
 import br.edu.ifes.col.locadorabackend.exceptions.ObjetoNaoEncontradoException;
 import br.edu.ifes.col.locadorabackend.repositories.ItemRepository;
+import br.edu.ifes.col.locadorabackend.repositories.LocacaoRepository;
 
 @Service
 public class ItemService {
 
 	private final ItemRepository repository;
 	private final TituloService tituloService;
+	private final LocacaoRepository locacaoRepository;
 
-	public ItemService(ItemRepository repository, TituloService tituloService) {
+	public ItemService(ItemRepository repository, TituloService tituloService, LocacaoRepository locacaoRepository) {
 		this.repository = repository;
 		this.tituloService = tituloService;
+		this.locacaoRepository = locacaoRepository;
 	}
 
 	public List<Item> findAll() {
@@ -50,8 +53,9 @@ public class ItemService {
 
 	public void delete(Long id) {
 		findById(id);
-		// Na Sprint 3, quando existir Locação, entra aqui a regra:
-		// não excluir item que possua locações.
+		if (locacaoRepository.existsByItemId(id)) {
+			throw new IntegridadeException("Não é possível excluir o item, pois ele possui locações");
+		}
 		repository.deleteById(id);
 	}
 

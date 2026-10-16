@@ -31,6 +31,11 @@ public class ResourceExceptionHandler {
 		return erro(HttpStatus.BAD_REQUEST, "Violação de integridade", e.getMessage(), request);
 	}
 
+	@ExceptionHandler(RegraNegocioException.class)
+	public ResponseEntity<ErroPadrao> regraNegocio(RegraNegocioException e, HttpServletRequest request) {
+		return erro(HttpStatus.BAD_REQUEST, "Regra de negócio", e.getMessage(), request);
+	}
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ErroPadrao> validacao(MethodArgumentNotValidException e, HttpServletRequest request) {
 		String mensagem = e.getBindingResult().getFieldErrors().stream()
