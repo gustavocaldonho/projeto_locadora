@@ -1,0 +1,80 @@
+# Locadora Passatempo
+
+Sistema da Locadora de Vídeo Passatempo, desenvolvido na disciplina Desenvolvimento Web III (IFES).
+
+| Pasta | O que é |
+| --- | --- |
+| `locadora-backend/` | API REST em Spring Boot 3.5, Java 21, Spring Data JPA e banco H2 |
+| `locadora-frontend/` | Interface em Angular 20 com Angular Material |
+| `docs/` | Coleção do Postman para testar a API |
+
+## Release 1 (Sprints 1 e 2): Controle de Acervo
+
+- **Sprint 1:** CRUD de Ator, Diretor e Classe.
+- **Sprint 2:** CRUD de Título e Item, documentação da API com Swagger e tratamento personalizado de exceções.
+
+Regras de integridade implementadas (do documento de análise):
+
+- Ator e diretor não podem ser excluídos se estiverem ligados a algum título.
+- Classe não pode ser excluída se existir título ligado a ela.
+- Título não pode ser excluído se tiver itens.
+- Título exige pelo menos um ator, um diretor e uma classe.
+- O número de série do item não pode se repetir.
+
+## Como rodar
+
+### 1. Backend
+
+Pelo **Spring Tool Suite 4**: `File > Import > Maven > Existing Maven Projects`, escolha a pasta `locadora-backend` e rode `LocadoraBackendApplication` com `Run As > Spring Boot App`.
+
+Ou pelo terminal, dentro de `locadora-backend`:
+
+```bash
+mvnw.cmd spring-boot:run     # Windows
+./mvnw spring-boot:run       # Linux/macOS
+```
+
+Endereços:
+
+- API: http://localhost:8080/locadora/resources/atores (também `diretores`, `classes`, `titulos`, `itens`)
+- Swagger: http://localhost:8080/locadora/swagger-ui.html
+- Console do H2: http://localhost:8080/locadora/h2-console (JDBC URL `jdbc:h2:mem:locadora`, usuário `sa`, sem senha)
+
+O banco é em memória: ao reiniciar, volta para os dados de exemplo do `data.sql`.
+
+### 2. Frontend
+
+Dentro de `locadora-frontend`:
+
+```bash
+npm install     # só na primeira vez
+ng serve
+```
+
+Abra http://localhost:4200.
+
+### 3. Postman
+
+Importe `docs/locadora.postman_collection.json`. A variável `baseUrl` já aponta para `http://localhost:8080/locadora/resources`.
+
+## Estrutura do backend
+
+Pacote `br.edu.ifes.col.locadorabackend`:
+
+- `domain` — entidades JPA (`Ator`, `Diretor`, `Classe`, `Titulo`, `Item`, enum `TipoItem`) e repositórios (`JpaRepository`)
+- `services` — regras de negócio (validações de exclusão, número de série único, busca de atores/diretor/classe do título)
+- `resources` — controllers REST, documentados com `@Tag`, `@Operation` e `@ApiResponse`
+- `exceptions` — `ObjetoNaoEncontradoException` (404), `IntegridadeException` (400), `ErroPadrao` e o `ResourceExceptionHandler` (`@ControllerAdvice`)
+- `config` — CORS para o Angular e informações do Swagger
+
+Exemplo de erro devolvido pela API:
+
+```json
+{
+  "timestamp": "2026-10-16T11:39:45.757",
+  "status": 400,
+  "error": "Violação de integridade",
+  "message": "Não é possível excluir o ator, pois ele participa de algum título",
+  "path": "/locadora/resources/atores/1"
+}
+```

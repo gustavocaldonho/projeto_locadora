@@ -1,0 +1,732 @@
+{
+  "info": {
+    "name": "Locadora Passatempo - Release 1",
+    "description": "CRUDs de Ator, Diretor, Classe, Título e Item. Os ids usados são os do data.sql. Excluir o id 1 de ator, diretor, classe ou título devolve 400, porque ele está em uso.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/locadora/resources"
+    }
+  ],
+  "item": [
+    {
+      "name": "Atores",
+      "item": [
+        {
+          "name": "Listar atores",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/atores",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "atores"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Buscar pelo id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/atores/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "atores",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Incluir",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/atores",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "atores"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Tom Hanks\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Alterar",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/atores/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "atores",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Keanu Charles Reeves\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Excluir",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/atores/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "atores",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Erro: ator sem nome (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/atores",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "atores"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Erro: ator inexistente (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/atores/999",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "atores",
+                "999"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Diretores",
+      "item": [
+        {
+          "name": "Listar diretores",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/diretores",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "diretores"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Buscar pelo id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/diretores/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "diretores",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Incluir",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/diretores",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "diretores"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Fernando Meirelles\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Alterar",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/diretores/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "diretores",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Lilly Wachowski\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Excluir",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/diretores/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "diretores",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Classes",
+      "item": [
+        {
+          "name": "Listar classes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/classes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classes"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Buscar pelo id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/classes/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classes",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Incluir",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/classes",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classes"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Promoção\",\n  \"valor\": 2.5,\n  \"prazoDevolucao\": 7\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Alterar",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/classes/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classes",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Lançamento\",\n  \"valor\": 9.0,\n  \"prazoDevolucao\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Excluir",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/classes/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classes",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Titulos",
+      "item": [
+        {
+          "name": "Listar titulos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/titulos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "titulos"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Buscar pelo id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/titulos/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "titulos",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Incluir",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/titulos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "titulos"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Cidade de Deus\",\n  \"ano\": 2002,\n  \"sinopse\": \"A história do crescimento do crime organizado na Cidade de Deus.\",\n  \"categoria\": \"Drama\",\n  \"atores\": [\n    {\n      \"id\": 4\n    },\n    {\n      \"id\": 5\n    }\n  ],\n  \"diretor\": {\n    \"id\": 2\n  },\n  \"classe\": {\n    \"id\": 2\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Alterar",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/titulos/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "titulos",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Matrix\",\n  \"ano\": 1999,\n  \"sinopse\": \"Neo descobre a verdade sobre a Matrix.\",\n  \"categoria\": \"Ficção científica\",\n  \"atores\": [\n    {\n      \"id\": 1\n    },\n    {\n      \"id\": 2\n    },\n    {\n      \"id\": 3\n    }\n  ],\n  \"diretor\": {\n    \"id\": 1\n  },\n  \"classe\": {\n    \"id\": 1\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Excluir",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/titulos/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "titulos",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Erro: ator inexistente (404)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/titulos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "titulos"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"X\",\n  \"ano\": 2000,\n  \"categoria\": \"Drama\",\n  \"atores\": [\n    {\n      \"id\": 999\n    }\n  ],\n  \"diretor\": {\n    \"id\": 1\n  },\n  \"classe\": {\n    \"id\": 1\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Itens",
+      "item": [
+        {
+          "name": "Listar itens",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/itens",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "itens"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Buscar pelo id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/itens/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "itens",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Incluir",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/itens",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "itens"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numSerie\": \"MTX-003\",\n  \"dtAquisicao\": \"2025-05-01\",\n  \"tipoItem\": \"DVD\",\n  \"titulo\": {\n    \"id\": 1\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Alterar",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/itens/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "itens",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numSerie\": \"MTX-001\",\n  \"dtAquisicao\": \"2024-03-10\",\n  \"tipoItem\": \"BLURAY\",\n  \"titulo\": {\n    \"id\": 1\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Excluir",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/itens/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "itens",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Erro: número de série repetido (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/itens",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "itens"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numSerie\": \"MTX-002\",\n  \"dtAquisicao\": \"2025-05-01\",\n  \"tipoItem\": \"DVD\",\n  \"titulo\": {\n    \"id\": 1\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Erro: tipo inválido (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/itens",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "itens"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numSerie\": \"X-1\",\n  \"dtAquisicao\": \"2025-05-01\",\n  \"tipoItem\": \"VHS\",\n  \"titulo\": {\n    \"id\": 1\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
