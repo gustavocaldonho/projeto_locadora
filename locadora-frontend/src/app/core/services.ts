@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { CrudService } from './crud-service';
-import { Ator, Classe, Diretor, Item, Titulo } from './models';
+import { Ator, Classe, Diretor, Item, Titulo, Usuario } from './models';
 
 @Injectable({ providedIn: 'root' })
 export class AtorService extends CrudService<Ator> {
@@ -36,5 +36,12 @@ export class TituloService extends CrudService<Titulo> {
 export class ItemService extends CrudService<Item> {
   constructor(http: HttpClient) {
     super(http, 'itens');
+  }
+}
+
+@Injectable({ providedIn: 'root' })
+export class UsuarioService extends CrudService<Usuario> {
+  constructor(http: HttpClient) {
+    super(http, 'usuarios');
   }
 }

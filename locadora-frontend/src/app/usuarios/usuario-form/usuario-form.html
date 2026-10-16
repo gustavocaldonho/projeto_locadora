@@ -1,0 +1,50 @@
+<h1>{{ editando ? 'Alterar' : 'Novo' }} usuário</h1>
+
+<mat-card appearance="outlined">
+  <form [formGroup]="form" (ngSubmit)="salvar()" class="formulario">
+    <div class="linha">
+      <mat-form-field appearance="outline">
+        <mat-label>Login</mat-label>
+        <input matInput formControlName="login" maxlength="50" autocomplete="off" />
+        @if (form.controls.login.hasError('required')) {
+          <mat-error>O login é obrigatório.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Perfil</mat-label>
+        <mat-select formControlName="perfil">
+          @for (p of perfis; track p.valor) {
+            <mat-option [value]="p.valor">{{ p.descricao }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="nome" maxlength="100" />
+      @if (form.controls.nome.hasError('required')) {
+        <mat-error>O nome é obrigatório.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ editando ? 'Nova senha' : 'Senha' }}</mat-label>
+      <input matInput type="password" formControlName="senha" autocomplete="new-password" />
+      @if (editando) {
+        <mat-hint>Deixe em branco para manter a senha atual.</mat-hint>
+      }
+      @if (form.controls.senha.hasError('required')) {
+        <mat-error>A senha é obrigatória.</mat-error>
+      } @else if (form.controls.senha.hasError('minlength')) {
+        <mat-error>A senha deve ter pelo menos 6 caracteres.</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="botoes">
+      <button mat-button type="button" (click)="voltar()">Cancelar</button>
+      <button mat-flat-button type="submit" [disabled]="salvando">Salvar</button>
+    </div>
+  </form>
+</mat-card>

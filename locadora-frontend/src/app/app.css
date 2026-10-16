@@ -26,3 +26,9 @@
   margin: 24px auto;
   padding: 0 16px;
 }
+
+.usuario-info {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  color: var(--mat-sys-on-surface-variant);
+}

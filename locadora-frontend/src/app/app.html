@@ -1,31 +1,61 @@
-<mat-toolbar class="toolbar">
-  <a mat-button routerLink="/" class="marca">
-    <mat-icon>movie</mat-icon>
-    Locadora Passatempo
-  </a>
-  <span class="espaco"></span>
-
-  <button mat-button [matMenuTriggerFor]="menuAcervo">
-    <mat-icon>video_library</mat-icon>
-    Acervo
-    <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
-  </button>
-  <mat-menu #menuAcervo="matMenu">
-    @for (item of acervo; track item.rota) {
-      <a mat-menu-item [routerLink]="item.rota">
-        <mat-icon>{{ item.icone }}</mat-icon>
-        <span>{{ item.nome }}</span>
-      </a>
-    }
-  </mat-menu>
-
-  @for (item of atendimento; track item.rota) {
-    <a mat-button [routerLink]="item.rota" routerLinkActive="ativo">
-      <mat-icon>{{ item.icone }}</mat-icon>
-      {{ item.nome }}
+@if (auth.usuario(); as usuario) {
+  <mat-toolbar class="toolbar">
+    <a mat-button [routerLink]="auth.ehFuncionario() ? '/' : '/consulta'" class="marca">
+      <mat-icon>movie</mat-icon>
+      Locadora Passatempo
     </a>
-  }
-</mat-toolbar>
+    <span class="espaco"></span>
+
+    @if (auth.ehFuncionario()) {
+      <button mat-button [matMenuTriggerFor]="menuAcervo">
+        <mat-icon>video_library</mat-icon>
+        Acervo
+        <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
+      </button>
+      <mat-menu #menuAcervo="matMenu">
+        @for (item of acervo; track item.rota) {
+          <a mat-menu-item [routerLink]="item.rota">
+            <mat-icon>{{ item.icone }}</mat-icon>
+            <span>{{ item.nome }}</span>
+          </a>
+        }
+      </mat-menu>
+
+      @for (item of atendimento; track item.rota) {
+        <a mat-button [routerLink]="item.rota" routerLinkActive="ativo">
+          <mat-icon>{{ item.icone }}</mat-icon>
+          {{ item.nome }}
+        </a>
+      }
+    }
+
+    <a mat-button routerLink="/consulta" routerLinkActive="ativo">
+      <mat-icon>search</mat-icon>
+      Consultar títulos
+    </a>
+
+    <button mat-button [matMenuTriggerFor]="menuUsuario">
+      <mat-icon>account_circle</mat-icon>
+      {{ usuario.nome }}
+      <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #menuUsuario="matMenu">
+      <div class="usuario-info">
+        {{ usuario.login }} · {{ auth.ehFuncionario() ? 'Funcionário' : 'Cliente' }}
+      </div>
+      @if (auth.ehFuncionario()) {
+        <a mat-menu-item routerLink="/usuarios">
+          <mat-icon>manage_accounts</mat-icon>
+          <span>Usuários</span>
+        </a>
+      }
+      <button mat-menu-item (click)="sair()">
+        <mat-icon>logout</mat-icon>
+        <span>Sair</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+}
 
 <main class="conteudo">
   <router-outlet />

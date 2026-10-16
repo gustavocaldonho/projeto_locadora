@@ -111,3 +111,37 @@ export interface DevolucaoInfo {
   multa: number;
   valorAPagar: number;
 }
+
+// ---------- Login e controle de acesso (Sprint 4) ----------
+
+export type Perfil = 'FUNCIONARIO' | 'CLIENTE';
+
+export const PERFIS: { valor: Perfil; descricao: string }[] = [
+  { valor: 'FUNCIONARIO', descricao: 'Funcionário' },
+  { valor: 'CLIENTE', descricao: 'Cliente' },
+];
+
+export interface Usuario {
+  id?: number;
+  login: string;
+  nome: string;
+  perfil: Perfil;
+  senha?: string; // só é enviada; o backend nunca devolve
+}
+
+/** Resultado da Consulta de Títulos. */
+export interface TituloConsulta {
+  id: number;
+  nome: string;
+  ano: number;
+  categoria: string;
+  sinopse?: string;
+  diretor: string;
+  atores: string[];
+  classe: string;
+  valorLocacao: number;
+  prazoDevolucao: number;
+  totalItens: number;
+  itensDisponiveis: number;
+  previsaoDisponibilidade?: string;
+}

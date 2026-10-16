@@ -1,0 +1,53 @@
+<div class="cabecalho">
+  <h1>Usuários</h1>
+  <a mat-flat-button routerLink="novo">
+    <mat-icon>add</mat-icon>
+    Novo usuário
+  </a>
+</div>
+<p class="texto-secundario">Funcionários usam todo o sistema. Clientes só consultam títulos.</p>
+
+<mat-card appearance="outlined">
+  <div class="tabela-container">
+    <table mat-table [dataSource]="dados" matSort>
+      <ng-container matColumnDef="login">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Login</th>
+        <td mat-cell *matCellDef="let x">{{ x.login }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+        <td mat-cell *matCellDef="let x">{{ x.nome }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="perfil">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Perfil</th>
+        <td mat-cell *matCellDef="let x">
+          <span class="etiqueta" [class.info]="x.perfil === 'FUNCIONARIO'" [class.neutra]="x.perfil === 'CLIENTE'">
+            {{ descricaoPerfil(x.perfil) }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acoes">
+        <th mat-header-cell *matHeaderCellDef class="coluna-acoes"></th>
+        <td mat-cell *matCellDef="let x" class="coluna-acoes">
+          <a mat-icon-button [routerLink]="[x.id]" matTooltip="Editar">
+            <mat-icon>edit</mat-icon>
+          </a>
+          <button mat-icon-button (click)="excluir(x)" matTooltip="Excluir">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="colunas"></tr>
+      <tr mat-row *matRowDef="let linha; columns: colunas"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="vazio" [attr.colspan]="colunas.length">
+          {{ carregando ? 'Carregando...' : 'Nenhum usuário encontrado.' }}
+        </td>
+      </tr>
+    </table>
+  </div>
+</mat-card>

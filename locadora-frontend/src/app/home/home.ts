@@ -11,6 +11,7 @@ export class Home {
     { nome: 'Clientes', rota: '/clientes', icone: 'groups', descricao: 'Sócios e seus dependentes (até 3 ativos).' },
     { nome: 'Locações', rota: '/locacoes', icone: 'shopping_bag', descricao: 'Locar itens, alterar e cancelar locações.' },
     { nome: 'Devolução', rota: '/devolucao', icone: 'assignment_return', descricao: 'Receber um item pelo número de série, com multa se houver atraso.' },
+    { nome: 'Consultar títulos', rota: '/consulta', icone: 'search', descricao: 'Buscar por nome, categoria ou ator e ver as cópias disponíveis.' },
   ];
 
   readonly acervo = [

@@ -1,0 +1,64 @@
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 16px;
+  align-items: flex-start;
+  padding: 16px 16px 0;
+}
+
+.filtros mat-form-field {
+  flex: 1;
+  min-width: 200px;
+}
+
+.limpar {
+  margin-top: 10px;
+}
+
+.resultado {
+  margin: 16px 0 8px;
+}
+
+.lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.disponibilidade {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 8px 0;
+}
+
+.sinopse {
+  margin: 8px 0;
+}
+
+.dados {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  margin: 8px 0 0;
+}
+
+.dados dt {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.dados dd {
+  margin: 0;
+}
+
+.link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--mat-sys-primary);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { AuthService } from './core/auth-service';
 
 @Component({
   selector: 'app-root',
@@ -21,4 +24,14 @@ export class App {
     { nome: 'Locações', rota: '/locacoes', icone: 'shopping_bag' },
     { nome: 'Devolução', rota: '/devolucao', icone: 'assignment_return' },
   ];
+
+  constructor(
+    readonly auth: AuthService,
+    private router: Router,
+  ) {}
+
+  sair(): void {
+    this.auth.sair();
+    this.router.navigate(['/login']);
+  }
 }

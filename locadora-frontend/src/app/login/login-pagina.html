@@ -1,0 +1,39 @@
+<div class="centro">
+  <mat-card appearance="outlined" class="cartao-login">
+    <div class="topo">
+      <mat-icon class="logo">movie</mat-icon>
+      <h1>Locadora Passatempo</h1>
+      <p class="texto-secundario">Entre com seu usuário e senha.</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="entrar()" class="formulario">
+      <mat-form-field appearance="outline">
+        <mat-label>Usuário</mat-label>
+        <mat-icon matPrefix>person</mat-icon>
+        <input matInput formControlName="login" autocomplete="username" />
+        @if (form.controls.login.hasError('required')) {
+          <mat-error>Informe o usuário.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Senha</mat-label>
+        <mat-icon matPrefix>lock</mat-icon>
+        <input matInput [type]="mostrarSenha ? 'text' : 'password'" formControlName="senha" autocomplete="current-password" />
+        <button mat-icon-button matSuffix type="button" (click)="mostrarSenha = !mostrarSenha"
+          [attr.aria-label]="mostrarSenha ? 'Esconder senha' : 'Mostrar senha'">
+          <mat-icon>{{ mostrarSenha ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        @if (form.controls.senha.hasError('required')) {
+          <mat-error>Informe a senha.</mat-error>
+        }
+      </mat-form-field>
+
+      @if (erro) {
+        <p class="erro" role="alert">{{ erro }}</p>
+      }
+
+      <button mat-flat-button type="submit" [disabled]="entrando">Entrar</button>
+    </form>
+  </mat-card>
+</div>

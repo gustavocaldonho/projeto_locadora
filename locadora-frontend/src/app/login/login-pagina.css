@@ -1,0 +1,31 @@
+.centro {
+  display: flex;
+  justify-content: center;
+  padding-top: 48px;
+}
+
+.cartao-login {
+  width: 100%;
+  max-width: 380px;
+}
+
+.topo {
+  text-align: center;
+  padding: 24px 16px 0;
+}
+
+.topo h1 {
+  margin: 8px 0 4px;
+}
+
+.logo {
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+  color: var(--mat-sys-primary);
+}
+
+.erro {
+  color: var(--mat-sys-error);
+  margin: 0 0 8px;
+}
