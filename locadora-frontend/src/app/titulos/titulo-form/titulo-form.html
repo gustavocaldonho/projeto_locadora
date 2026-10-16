@@ -1,0 +1,84 @@
+<h1>{{ editando ? 'Alterar' : 'Novo' }} título</h1>
+
+<mat-card appearance="outlined">
+  <form [formGroup]="form" (ngSubmit)="salvar()" class="formulario">
+    <mat-form-field appearance="outline">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="nome" maxlength="150" />
+      @if (form.controls.nome.hasError('required')) {
+        <mat-error>O nome é obrigatório.</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="linha">
+      <mat-form-field appearance="outline">
+        <mat-label>Ano</mat-label>
+        <input matInput type="number" formControlName="ano" />
+        @if (form.controls.ano.hasError('required')) {
+          <mat-error>O ano é obrigatório.</mat-error>
+        } @else if (form.controls.ano.invalid) {
+          <mat-error>Ano inválido.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Categoria</mat-label>
+        <input matInput formControlName="categoria" maxlength="50" placeholder="Ex.: Drama" />
+        @if (form.controls.categoria.hasError('required')) {
+          <mat-error>A categoria é obrigatória.</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Atores</mat-label>
+      <mat-select formControlName="atoresIds" multiple>
+        @for (ator of atores; track ator.id) {
+          <mat-option [value]="ator.id">{{ ator.nome }}</mat-option>
+        }
+      </mat-select>
+      <mat-hint>Selecione um ou mais atores.</mat-hint>
+      @if (form.controls.atoresIds.hasError('required')) {
+        <mat-error>Informe pelo menos um ator.</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="linha">
+      <mat-form-field appearance="outline">
+        <mat-label>Diretor</mat-label>
+        <mat-select formControlName="diretorId">
+          @for (diretor of diretores; track diretor.id) {
+            <mat-option [value]="diretor.id">{{ diretor.nome }}</mat-option>
+          }
+        </mat-select>
+        @if (form.controls.diretorId.hasError('required')) {
+          <mat-error>O diretor é obrigatório.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Classe</mat-label>
+        <mat-select formControlName="classeId">
+          @for (classe of classes; track classe.id) {
+            <mat-option [value]="classe.id">
+              {{ classe.nome }} ({{ classe.valor | currency: 'BRL' }}, {{ classe.prazoDevolucao }} dias)
+            </mat-option>
+          }
+        </mat-select>
+        @if (form.controls.classeId.hasError('required')) {
+          <mat-error>A classe é obrigatória.</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Sinopse</mat-label>
+      <textarea matInput formControlName="sinopse" rows="4" maxlength="2000"></textarea>
+    </mat-form-field>
+
+    <div class="botoes">
+      <button mat-button type="button" (click)="voltar()">Cancelar</button>
+      <button mat-flat-button type="submit" [disabled]="salvando">Salvar</button>
+    </div>
+  </form>
+</mat-card>

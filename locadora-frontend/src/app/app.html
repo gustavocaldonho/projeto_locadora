@@ -1,0 +1,17 @@
+<mat-toolbar color="primary" class="toolbar">
+  <a mat-button routerLink="/" class="marca">
+    <mat-icon>movie</mat-icon>
+    Locadora Passatempo
+  </a>
+  <span class="espaco"></span>
+  @for (item of menu; track item.rota) {
+    <a mat-button [routerLink]="item.rota" routerLinkActive="ativo">
+      <mat-icon>{{ item.icone }}</mat-icon>
+      {{ item.nome }}
+    </a>
+  }
+</mat-toolbar>
+
+<main class="conteudo">
+  <router-outlet />
+</main>

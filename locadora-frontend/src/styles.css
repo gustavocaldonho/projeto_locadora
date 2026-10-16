@@ -1,0 +1,69 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Estilos compartilhados pelas telas de cadastro */
+.cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.filtro {
+  width: 100%;
+}
+
+.tabela-container {
+  overflow-x: auto;
+}
+
+table.mat-mdc-table {
+  width: 100%;
+}
+
+.coluna-acoes {
+  width: 1%;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.vazio {
+  padding: 24px;
+  text-align: center;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.formulario {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 640px;
+}
+
+.linha {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.linha > mat-form-field {
+  flex: 1;
+  min-width: 180px;
+}
+
+.botoes {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.snack-erro {
+  --mat-snack-bar-container-color: #b3261e;
+  --mat-snack-bar-supporting-text-color: #fff;
+  --mat-snack-bar-button-color: #fff;
+}

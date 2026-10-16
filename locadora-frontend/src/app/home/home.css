@@ -1,0 +1,23 @@
+.subtitulo {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.cartao {
+  cursor: pointer;
+}
+
+.cartao:hover {
+  background: var(--mat-sys-surface-container);
+}
+
+mat-icon[mat-card-avatar] {
+  font-size: 32px;
+  width: 40px;
+  height: 40px;
+}

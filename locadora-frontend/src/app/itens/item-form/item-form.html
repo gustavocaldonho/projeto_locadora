@@ -1,0 +1,52 @@
+<h1>{{ editando ? 'Alterar' : 'Novo' }} item</h1>
+
+<mat-card appearance="outlined">
+  <form [formGroup]="form" (ngSubmit)="salvar()" class="formulario">
+    <mat-form-field appearance="outline">
+      <mat-label>Título</mat-label>
+      <mat-select formControlName="tituloId">
+        @for (titulo of titulos; track titulo.id) {
+          <mat-option [value]="titulo.id">{{ titulo.nome }} ({{ titulo.ano }})</mat-option>
+        }
+      </mat-select>
+      @if (form.controls.tituloId.hasError('required')) {
+        <mat-error>O título é obrigatório.</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="linha">
+      <mat-form-field appearance="outline">
+        <mat-label>Número de série</mat-label>
+        <input matInput formControlName="numSerie" maxlength="50" />
+        @if (form.controls.numSerie.hasError('required')) {
+          <mat-error>O número de série é obrigatório.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Tipo</mat-label>
+        <mat-select formControlName="tipoItem">
+          @for (tipo of tipos; track tipo.valor) {
+            <mat-option [value]="tipo.valor">{{ tipo.descricao }}</mat-option>
+          }
+        </mat-select>
+        @if (form.controls.tipoItem.hasError('required')) {
+          <mat-error>O tipo é obrigatório.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Data de aquisição</mat-label>
+        <input matInput type="date" formControlName="dtAquisicao" [max]="hoje" />
+        @if (form.controls.dtAquisicao.hasError('required')) {
+          <mat-error>A data é obrigatória.</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="botoes">
+      <button mat-button type="button" (click)="voltar()">Cancelar</button>
+      <button mat-flat-button type="submit" [disabled]="salvando">Salvar</button>
+    </div>
+  </form>
+</mat-card>

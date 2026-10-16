@@ -1,0 +1,18 @@
+<h1>{{ editando ? 'Alterar' : 'Novo' }} ator</h1>
+
+<mat-card appearance="outlined">
+  <form [formGroup]="form" (ngSubmit)="salvar()" class="formulario">
+    <mat-form-field appearance="outline">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="nome" maxlength="100" />
+      @if (form.controls.nome.hasError('required')) {
+        <mat-error>O nome é obrigatório.</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="botoes">
+      <button mat-button type="button" (click)="voltar()">Cancelar</button>
+      <button mat-flat-button type="submit" [disabled]="salvando">Salvar</button>
+    </div>
+  </form>
+</mat-card>
