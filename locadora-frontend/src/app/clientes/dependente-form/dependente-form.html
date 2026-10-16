@@ -1,0 +1,43 @@
+<h1>{{ editando ? 'Dependente nº ' + id : 'Incluir dependente' }}</h1>
+@if (socio) {
+  <p class="texto-secundario">Sócio: {{ socio.nome }} (nº {{ socio.numInscricao }})</p>
+}
+
+<mat-card appearance="outlined">
+  <form [formGroup]="form" (ngSubmit)="salvar()" class="formulario">
+    <mat-form-field appearance="outline">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="nome" maxlength="100" />
+      @if (form.controls.nome.hasError('required')) {
+        <mat-error>O nome é obrigatório.</mat-error>
+      }
+    </mat-form-field>
+
+    <div class="linha">
+      <mat-form-field appearance="outline">
+        <mat-label>Data de nascimento</mat-label>
+        <input matInput type="date" formControlName="dtNascimento" [max]="hoje" />
+        @if (form.controls.dtNascimento.hasError('required')) {
+          <mat-error>A data de nascimento é obrigatória.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Sexo</mat-label>
+        <mat-select formControlName="sexo">
+          @for (s of sexos; track s.valor) {
+            <mat-option [value]="s.valor">{{ s.descricao }}</mat-option>
+          }
+        </mat-select>
+        @if (form.controls.sexo.hasError('required')) {
+          <mat-error>O sexo é obrigatório.</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <div class="botoes">
+      <button mat-button type="button" (click)="voltar()">Cancelar</button>
+      <button mat-flat-button type="submit" [disabled]="salvando">Salvar</button>
+    </div>
+  </form>
+</mat-card>

@@ -3,6 +3,7 @@ import { LOCALE_ID, NgModule, provideBrowserGlobalErrorListeners } from '@angula
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AppRoutingModule } from './app-routing-module';
@@ -14,7 +15,7 @@ registerLocaleData(localePt);
 
 @NgModule({
   declarations: [App, Home],
-  imports: [BrowserModule, AppRoutingModule, SharedModule, MatToolbarModule],
+  imports: [BrowserModule, AppRoutingModule, SharedModule, MatToolbarModule, MatMenuModule],
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(),

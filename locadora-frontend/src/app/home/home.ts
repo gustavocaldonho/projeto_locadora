@@ -7,7 +7,13 @@ import { Component } from '@angular/core';
   styleUrl: './home.css',
 })
 export class Home {
-  readonly cadastros = [
+  readonly atendimento = [
+    { nome: 'Clientes', rota: '/clientes', icone: 'groups', descricao: 'Sócios e seus dependentes (até 3 ativos).' },
+    { nome: 'Locações', rota: '/locacoes', icone: 'shopping_bag', descricao: 'Locar itens, alterar e cancelar locações.' },
+    { nome: 'Devolução', rota: '/devolucao', icone: 'assignment_return', descricao: 'Receber um item pelo número de série, com multa se houver atraso.' },
+  ];
+
+  readonly acervo = [
     { nome: 'Atores', rota: '/atores', icone: 'person', descricao: 'Atores que participam dos títulos.' },
     { nome: 'Diretores', rota: '/diretores', icone: 'videocam', descricao: 'Diretores dos títulos.' },
     { nome: 'Classes', rota: '/classes', icone: 'sell', descricao: 'Valor da locação e prazo de devolução.' },

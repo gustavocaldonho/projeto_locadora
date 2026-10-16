@@ -1,0 +1,76 @@
+<h1>{{ editando ? 'Alterar locação' : 'Nova locação' }}</h1>
+
+<mat-card appearance="outlined">
+  <form [formGroup]="form" (ngSubmit)="salvar()" class="formulario">
+    @if (editando && locacao) {
+      <p>
+        <strong>{{ locacao.item.numSerie }} – {{ locacao.item.titulo.nome }}</strong>
+        locado para <strong>{{ locacao.cliente.nome }}</strong> (nº {{ locacao.cliente.numInscricao }})
+        em {{ locacao.dtLocacao | date: 'dd/MM/yyyy' }}.
+      </p>
+    } @else {
+      <mat-form-field appearance="outline">
+        <mat-label>Cliente</mat-label>
+        <mat-select formControlName="clienteId">
+          @for (c of clientes; track c.numInscricao) {
+            <mat-option [value]="c.numInscricao">{{ descricaoCliente(c) }}</mat-option>
+          }
+        </mat-select>
+        <mat-hint>Só aparecem clientes ativos. Cliente em débito é recusado ao salvar.</mat-hint>
+        @if (form.controls.clienteId.hasError('required')) {
+          <mat-error>Escolha o cliente.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Item</mat-label>
+        <mat-select formControlName="itemId">
+          @for (i of itens; track i.id) {
+            <mat-option [value]="i.id">{{ descricaoItem(i) }}</mat-option>
+          }
+        </mat-select>
+        <mat-hint>Só aparecem itens que não estão locados.</mat-hint>
+        @if (form.controls.itemId.hasError('required')) {
+          <mat-error>Escolha o item.</mat-error>
+        }
+      </mat-form-field>
+
+      @if (itemSelecionado; as item) {
+        <p class="texto-secundario">
+          Classe {{ item.titulo.classe.nome }}: {{ item.titulo.classe.valor | currency: 'BRL' }} por
+          {{ item.titulo.classe.prazoDevolucao }} dias. Você pode alterar o valor e a data abaixo.
+        </p>
+      }
+    }
+
+    <div class="linha">
+      <mat-form-field appearance="outline">
+        <mat-label>Valor da locação</mat-label>
+        <span matTextPrefix>R$&nbsp;</span>
+        <input matInput type="number" formControlName="valorCobrado" min="0" step="0.01" />
+        @if (form.controls.valorCobrado.hasError('required')) {
+          <mat-error>O valor é obrigatório.</mat-error>
+        } @else if (form.controls.valorCobrado.hasError('min')) {
+          <mat-error>O valor não pode ser negativo.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Devolução prevista</mat-label>
+        <input matInput type="date" formControlName="dtDevolucaoPrevista" [min]="hoje" />
+        @if (form.controls.dtDevolucaoPrevista.hasError('required')) {
+          <mat-error>A data prevista é obrigatória.</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <mat-checkbox formControlName="paga">Cliente já pagou a locação</mat-checkbox>
+
+    <div class="botoes">
+      <button mat-button type="button" (click)="voltar()">Cancelar</button>
+      <button mat-flat-button type="submit" [disabled]="salvando">
+        {{ editando ? 'Salvar alterações' : 'Registrar locação' }}
+      </button>
+    </div>
+  </form>
+</mat-card>

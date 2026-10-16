@@ -11,6 +11,9 @@ const routes: Routes = [
   { path: 'classes', loadChildren: () => import('./classes/classes-module').then((m) => m.ClassesModule) },
   { path: 'titulos', loadChildren: () => import('./titulos/titulos-module').then((m) => m.TitulosModule) },
   { path: 'itens', loadChildren: () => import('./itens/itens-module').then((m) => m.ItensModule) },
+  { path: 'clientes', loadChildren: () => import('./clientes/clientes-module').then((m) => m.ClientesModule) },
+  { path: 'locacoes', loadChildren: () => import('./locacoes/locacoes-module').then((m) => m.LocacoesModule) },
+  { path: 'devolucao', loadChildren: () => import('./devolucao/devolucao-module').then((m) => m.DevolucaoModule) },
   { path: '**', redirectTo: '' },
 ];
 

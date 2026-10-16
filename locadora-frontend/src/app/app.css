@@ -18,7 +18,7 @@
 }
 
 .ativo {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--mat-sys-secondary-container);
 }
 
 .conteudo {

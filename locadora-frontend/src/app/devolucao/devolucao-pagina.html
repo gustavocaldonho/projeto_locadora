@@ -1,0 +1,85 @@
+<h1>Devolução</h1>
+
+<mat-card appearance="outlined">
+  <form class="formulario" (ngSubmit)="buscar()">
+    <div class="linha" style="align-items: flex-start">
+      <mat-form-field appearance="outline">
+        <mat-label>Número de série do item</mat-label>
+        <mat-icon matPrefix>qr_code</mat-icon>
+        <input matInput [formControl]="numSerie" placeholder="Ex.: MTX-001" />
+        @if (numSerie.hasError('required')) {
+          <mat-error>Informe o número de série.</mat-error>
+        }
+      </mat-form-field>
+      <button mat-flat-button type="submit" [disabled]="processando" style="margin-top: 8px">Buscar locação</button>
+    </div>
+  </form>
+</mat-card>
+
+@if (info; as i) {
+  <mat-card appearance="outlined" class="secao">
+    <mat-card-header>
+      <mat-card-title>{{ i.locacao.item.titulo.nome }}</mat-card-title>
+      <mat-card-subtitle>
+        Item {{ i.locacao.item.numSerie }} · locado por {{ i.locacao.cliente.nome }} (nº {{ i.locacao.cliente.numInscricao }})
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <table class="resumo">
+        <tr>
+          <td>Data da locação</td>
+          <td>{{ i.locacao.dtLocacao | date: 'dd/MM/yyyy' }}</td>
+        </tr>
+        <tr>
+          <td>Devolução prevista</td>
+          <td>{{ i.locacao.dtDevolucaoPrevista | date: 'dd/MM/yyyy' }}</td>
+        </tr>
+        <tr>
+          <td>Atraso</td>
+          <td>
+            @if (i.diasAtraso > 0) {
+              <span class="etiqueta alerta">{{ i.diasAtraso }} {{ i.diasAtraso === 1 ? 'dia' : 'dias' }}</span>
+            } @else {
+              <span class="etiqueta ok">No prazo</span>
+            }
+          </td>
+        </tr>
+        <tr>
+          <td>Locação</td>
+          <td>{{ i.valorLocacao | currency: 'BRL' }} {{ i.locacao.paga ? '(já paga)' : '' }}</td>
+        </tr>
+        <tr>
+          <td>Multa</td>
+          <td>{{ i.multa | currency: 'BRL' }}</td>
+        </tr>
+        <tr class="total">
+          <td>Total a pagar</td>
+          <td>{{ i.valorAPagar | currency: 'BRL' }}</td>
+        </tr>
+      </table>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-button (click)="info = undefined">Cancelar</button>
+      <button mat-flat-button (click)="confirmar()" [disabled]="processando">
+        <mat-icon>assignment_return</mat-icon>
+        Confirmar devolução
+      </button>
+    </mat-card-actions>
+  </mat-card>
+}
+
+@if (registrada; as r) {
+  <mat-card appearance="outlined" class="secao">
+    <mat-card-content>
+      <p>
+        <mat-icon style="vertical-align: middle; color: #1b5e20">check_circle</mat-icon>
+        Devolução de <strong>{{ r.locacao.item.titulo.nome }}</strong> ({{ r.locacao.item.numSerie }}) registrada em
+        {{ r.locacao.dtDevolucaoEfetiva | date: 'dd/MM/yyyy' }}. Valor recebido:
+        <strong>{{ r.valorAPagar | currency: 'BRL' }}</strong>
+        @if (r.multa > 0) {
+          (incluindo multa de {{ r.multa | currency: 'BRL' }})
+        }
+      </p>
+    </mat-card-content>
+  </mat-card>
+}

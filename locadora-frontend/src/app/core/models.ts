@@ -50,3 +50,64 @@ export interface ErroPadrao {
   message: string;
   path: string;
 }
+
+// ---------- Atendimento a Cliente (Sprint 3) ----------
+
+export type Sexo = 'MASCULINO' | 'FEMININO';
+
+export const SEXOS: { valor: Sexo; descricao: string }[] = [
+  { valor: 'FEMININO', descricao: 'Feminino' },
+  { valor: 'MASCULINO', descricao: 'Masculino' },
+];
+
+/** Campos comuns a sócios e dependentes. numInscricao é gerado pelo backend. */
+export interface Cliente {
+  numInscricao?: number;
+  nome: string;
+  dtNascimento: string; // yyyy-MM-dd
+  sexo: Sexo;
+  estahAtivo?: boolean;
+  tipo?: 'SOCIO' | 'DEPENDENTE';
+}
+
+export interface Socio extends Cliente {
+  cpf: string;
+  endereco: string;
+  tel: string;
+}
+
+export interface Dependente extends Cliente {
+  socio: Partial<Socio>;
+}
+
+export type SituacaoLocacao = 'VIGENTE' | 'ATRASADA' | 'DEVOLVIDA';
+
+export interface Locacao {
+  id: number;
+  dtLocacao: string;
+  dtDevolucaoPrevista: string;
+  dtDevolucaoEfetiva?: string;
+  valorCobrado: number;
+  multaCobrada?: number;
+  paga: boolean;
+  situacao: SituacaoLocacao;
+  item: Item;
+  cliente: Cliente;
+}
+
+/** Corpo enviado para criar ou alterar uma locação. */
+export interface LocacaoRequest {
+  clienteId?: number;
+  itemId?: number;
+  valorCobrado?: number | null;
+  dtDevolucaoPrevista?: string | null;
+  paga?: boolean;
+}
+
+export interface DevolucaoInfo {
+  locacao: Locacao;
+  diasAtraso: number;
+  valorLocacao: number;
+  multa: number;
+  valorAPagar: number;
+}

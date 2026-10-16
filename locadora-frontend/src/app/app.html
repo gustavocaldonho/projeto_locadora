@@ -1,10 +1,25 @@
-<mat-toolbar color="primary" class="toolbar">
+<mat-toolbar class="toolbar">
   <a mat-button routerLink="/" class="marca">
     <mat-icon>movie</mat-icon>
     Locadora Passatempo
   </a>
   <span class="espaco"></span>
-  @for (item of menu; track item.rota) {
+
+  <button mat-button [matMenuTriggerFor]="menuAcervo">
+    <mat-icon>video_library</mat-icon>
+    Acervo
+    <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
+  </button>
+  <mat-menu #menuAcervo="matMenu">
+    @for (item of acervo; track item.rota) {
+      <a mat-menu-item [routerLink]="item.rota">
+        <mat-icon>{{ item.icone }}</mat-icon>
+        <span>{{ item.nome }}</span>
+      </a>
+    }
+  </mat-menu>
+
+  @for (item of atendimento; track item.rota) {
     <a mat-button [routerLink]="item.rota" routerLinkActive="ativo">
       <mat-icon>{{ item.icone }}</mat-icon>
       {{ item.nome }}

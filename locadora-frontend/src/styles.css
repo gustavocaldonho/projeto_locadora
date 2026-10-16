@@ -67,3 +67,62 @@ table.mat-mdc-table {
   --mat-snack-bar-supporting-text-color: #fff;
   --mat-snack-bar-button-color: #fff;
 }
+
+/* Etiquetas de situação (cliente ativo/inativo, locação vigente/atrasada/devolvida) */
+.etiqueta {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.etiqueta.ok {
+  background: #e3f4e6;
+  color: #1b5e20;
+}
+
+.etiqueta.alerta {
+  background: #fde7e7;
+  color: #b3261e;
+}
+
+.etiqueta.neutra {
+  background: var(--mat-sys-surface-container-high);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.etiqueta.info {
+  background: #e3edfb;
+  color: #0b4a8f;
+}
+
+.secao {
+  margin-top: 32px;
+}
+
+.texto-secundario {
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 0.85rem;
+}
+
+.resumo {
+  border-collapse: collapse;
+  min-width: 280px;
+}
+
+.resumo td {
+  padding: 6px 24px 6px 0;
+}
+
+.resumo td:first-child {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.resumo .total td {
+  font-weight: 600;
+  font-size: 1.1rem;
+  border-top: 1px solid var(--mat-sys-outline-variant);
+  padding-top: 10px;
+}
