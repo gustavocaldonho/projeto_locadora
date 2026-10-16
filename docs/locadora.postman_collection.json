@@ -1,7 +1,7 @@
 {
   "info": {
-    "name": "Locadora Passatempo - Releases 1 e 2",
-    "description": "Release 1: acervo. Release 2 (Sprint 3): sócios, dependentes, locações e devoluções. Os ids usados são os dos dados iniciais de exemplo (banco recém-criado): sócios João (1) e Maria (2), dependentes Pedro (3) e Ana (4); a locação do item CDB-001 está em atraso.",
+    "name": "Locadora Passatempo - Releases 1 a 3",
+    "description": "Release 1: acervo. Release 2 (Sprint 3): sócios, dependentes, locações e devoluções. Release 3 (Sprint 4): login, usuários e consulta de títulos; a coleção autentica como admin/admin123. Os ids usados são os dos dados iniciais de exemplo (banco recém-criado): sócios João (1) e Maria (2), dependentes Pedro (3) e Ana (4); a locação do item CDB-001 está em atraso.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -1367,6 +1367,371 @@
           }
         }
       ]
+    },
+    {
+      "name": "Consulta de títulos",
+      "item": [
+        {
+          "name": "Consultar todos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/titulos/consulta",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "titulos",
+                "consulta"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Consultar por nome",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/titulos/consulta?nome=matrix",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "titulos",
+                "consulta"
+              ],
+              "query": [
+                {
+                  "key": "nome",
+                  "value": "matrix"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Consultar por categoria",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/titulos/consulta?categoria=Drama",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "titulos",
+                "consulta"
+              ],
+              "query": [
+                {
+                  "key": "categoria",
+                  "value": "Drama"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Consultar por ator",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/titulos/consulta?atorId=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "titulos",
+                "consulta"
+              ],
+              "query": [
+                {
+                  "key": "atorId",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Listar categorias",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/titulos/consulta/categorias",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "titulos",
+                "consulta",
+                "categorias"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Listar atores da consulta",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/titulos/consulta/atores",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "titulos",
+                "consulta",
+                "atores"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Usuários",
+      "item": [
+        {
+          "name": "Usuário logado",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/usuario",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "usuario"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Listar usuários",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/usuarios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "usuarios"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Buscar usuário",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/usuarios/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "usuarios",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Incluir usuário",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/usuarios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "usuarios"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"login\": \"maria\",\n  \"senha\": \"maria123\",\n  \"nome\": \"Maria\",\n  \"perfil\": \"CLIENTE\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Alterar usuário (senha em branco mantém a atual)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/usuarios/3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "usuarios",
+                "3"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"login\": \"maria\",\n  \"senha\": \"\",\n  \"nome\": \"Maria Souza\",\n  \"perfil\": \"CLIENTE\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Excluir usuário",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/usuarios/3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "usuarios",
+                "3"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Segurança",
+      "item": [
+        {
+          "name": "Cliente consulta títulos (200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/titulos/consulta",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "titulos",
+                "consulta"
+              ]
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "cliente",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "cliente123",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Cliente tenta listar atores (403)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/atores",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "atores"
+              ]
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "cliente",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "cliente123",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Senha errada (401)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/usuario",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "usuario"
+              ]
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "admin",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "errada",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      ]
     }
-  ]
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "admin",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "admin123",
+        "type": "string"
+      }
+    ]
+  }
 }
