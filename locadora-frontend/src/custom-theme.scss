@@ -15,6 +15,36 @@ html {
     typography: Roboto,
     density: 0,
   ));
+
+  // Paleta da Locadora Passatempo:
+  // #0B3C5D azul escuro, #1D5E83 azul, #8FB3C8 azul claro, #D4B896 areia, #F6F0E6 creme
+  @include mat.theme-overrides((
+    primary: #1D5E83,
+    on-primary: #ffffff,
+    primary-container: #D3E2EB,
+    on-primary-container: #0B3C5D,
+    inverse-primary: #8FB3C8,
+    secondary: #0B3C5D,
+    on-secondary: #ffffff,
+    secondary-container: #D3E2EB,
+    on-secondary-container: #0B3C5D,
+    tertiary: #7A5C34,
+    on-tertiary: #ffffff,
+    tertiary-container: #D4B896,
+    on-tertiary-container: #3B2A12,
+    background: #F6F0E6,
+    on-background: #1C2730,
+    surface: #F6F0E6,
+    on-surface: #1C2730,
+    on-surface-variant: #4A5560,
+    surface-container-lowest: #ffffff,
+    surface-container-low: #FCF9F4,
+    surface-container: #EFE6D8,
+    surface-container-high: #E9DECD,
+    surface-container-highest: #E3D6C2,
+    outline: #6F7A84,
+    outline-variant: #D9CBB4,
+  ));
 }
 
 body {

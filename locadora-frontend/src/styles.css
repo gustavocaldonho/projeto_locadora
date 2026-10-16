@@ -3,6 +3,8 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+h1, h2 { color: #0B3C5D; }
+
 /* Estilos compartilhados pelas telas de cadastro */
 .cabecalho {
   display: flex;
@@ -94,8 +96,16 @@ table.mat-mdc-table {
 }
 
 .etiqueta.info {
-  background: #e3edfb;
-  color: #0b4a8f;
+  background: #D3E2EB;
+  color: #0B3C5D;
+}
+
+/* Cartões e tabelas em branco sobre o fundo creme */
+html {
+  --mat-card-outlined-container-color: #ffffff;
+  --mat-card-elevated-container-color: #ffffff;
+  --mat-table-background-color: #ffffff;
+  --mat-paginator-container-background-color: #ffffff;
 }
 
 .secao {

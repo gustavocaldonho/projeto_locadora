@@ -1,10 +1,16 @@
 .centro {
   display: flex;
+  position: fixed;
+  inset: 0;
+  overflow: auto;
+  padding: 48px 16px;
+  background: linear-gradient(160deg, #0B3C5D 0%, #1D5E83 55%, #8FB3C8 100%);
   justify-content: center;
-  padding-top: 48px;
 }
 
 .cartao-login {
+  align-self: flex-start;
+  border-top: 4px solid #D4B896;
   width: 100%;
   max-width: 380px;
 }

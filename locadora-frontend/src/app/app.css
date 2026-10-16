@@ -6,6 +6,11 @@
   flex-wrap: wrap;
   height: auto;
   min-height: 64px;
+  --mat-toolbar-container-background-color: #0B3C5D;
+  --mat-toolbar-container-text-color: #F6F0E6;
+  --mat-button-text-label-text-color: #F6F0E6;
+  --mat-button-text-state-layer-color: #F6F0E6;
+  border-bottom: 3px solid #D4B896;
 }
 
 .marca {
@@ -17,8 +22,9 @@
   flex: 1;
 }
 
-.ativo {
-  background: var(--mat-sys-secondary-container);
+.toolbar .ativo {
+  background: #1D5E83;
+  box-shadow: inset 0 -2px 0 #D4B896;
 }
 
 .conteudo {
